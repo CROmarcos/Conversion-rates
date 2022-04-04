@@ -10,18 +10,25 @@ function App() {
     valute.push(item.valuta)
   });
 
-  const [curr, setCurr] = useState('AUD')
-  const [amount, setAmount] = useState(0)
+  const [input, setInput] = useState({
+    currency: 'AUD',
+    amount: 0
+  })
 
-  const currencyChange = () => {
-    var select = document.getElementById('izborValute').value.toString();
-    setCurr(select)
+  const handleChange = (e) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+    console.log(input)
   }
 
-  const amountChange = () => {
-    var select = parseFloat(document.getElementById('iznos').value.toString());
-    setAmount(select)
+  const convert = (money) => {
+    let trazenaValuta = data.find(vlt => vlt.valuta === input.currency)
+    return input.amount * parseFloat(trazenaValuta.srednji_tecaj) / money
   }
+
+  convert(100)
 
   return (
     <div className="App">
@@ -58,7 +65,7 @@ function App() {
                 <td>{valuta.kupovni_tecaj}</td>
                 <td>{valuta.srednji_tecaj}</td>
                 <td>{valuta.prodajni_tecaj}</td>
-                <td>{curr}</td>
+                <td>{input.currency === valuta.valuta ? "---" : convert(parseFloat(valuta.srednji_tecaj)).toLocaleString("en-US", { maximumFractionDigits: 7 })}</td>
               </tr>
             )}
           </tbody>
@@ -67,19 +74,19 @@ function App() {
         {/* Input za promjenu vrijednosti */}
         <div className='Unos'>
           <div>
-            <label>Unesi iznos</label>
-            <input type="number" id='iznos' onChange={amountChange}></input></div>
-          <div>
+            <label className='amountInput'>Unesi iznos</label>
+            <input className='amountInput' type="number" name='amount' value={input.amount} onChange={handleChange}></input>
+            <br />
             <label>Odaberi valutu</label>
-            <select id='izborValute' onChange={currencyChange}>
+            <select id='izborValute' name='currency' onChange={handleChange}>
               {valute.map(
-                valuta => <option key={valuta}>{valuta}</option>
+                vlt => <option key={vlt}>{vlt}</option>
               )}
             </select>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

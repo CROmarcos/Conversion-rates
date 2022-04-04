@@ -41,6 +41,7 @@
 
 table {
   margin: auto;
+  margin-bottom: 25px;
 }
 
 thead {
@@ -58,10 +59,19 @@ td, th {
 
 .Unos {
   background-color: rgb(233, 233, 227);
-  width: 500px;
+  width: 400px;
   height: 100px;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.amountInput {
+  margin-bottom: 20px;
 }
