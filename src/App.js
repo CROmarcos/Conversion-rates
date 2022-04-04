@@ -20,15 +20,12 @@ function App() {
       ...input,
       [e.target.name]: e.target.value
     })
-    console.log(input)
   }
 
   const convert = (money) => {
     let trazenaValuta = data.find(vlt => vlt.valuta === input.currency)
     return input.amount * parseFloat(trazenaValuta.srednji_tecaj) / money
   }
-
-  convert(100)
 
   return (
     <div className="App">
@@ -65,7 +62,7 @@ function App() {
                 <td>{valuta.kupovni_tecaj}</td>
                 <td>{valuta.srednji_tecaj}</td>
                 <td>{valuta.prodajni_tecaj}</td>
-                <td>{input.currency === valuta.valuta ? "---" : convert(parseFloat(valuta.srednji_tecaj)).toLocaleString("en-US", { maximumFractionDigits: 7 })}</td>
+                <td>{input.currency === valuta.valuta ? "---" : convert(parseFloat(valuta.srednji_tecaj)).toLocaleString("en-US", { maximumFractionDigits: 6 })}</td>
               </tr>
             )}
           </tbody>
